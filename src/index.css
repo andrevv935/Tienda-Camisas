@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@theme {
+    /*Paleta predeterminada*/
+    --color-default-primary: '#E4A97C';
+    --color-default-secondary: '#AB886D';
+    --color-default-accent: '#6DA4AB';
+    --color-default-neutral: '#EDEDED';
+    --color-default-background: '#000000';
+
+    /*Paleta del modo oscuro*/
+    --color-dark-primary: '#83481B';
+    --color-dark-secondary: '#926F54';
+    --color-dark-accent: '#548B92';
+    --color-dark-neutral: '#121212';
+    --color-dark-background: '#FFFFFF';
+}
+
+input {
+    border-width: 2px;
+    padding: 6px;
+    margin-bottom: 1%;
+    border-radius: 8px;
+}
