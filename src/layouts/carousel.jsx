@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import ProductCard from '../layouts/product-card'
+import CardContainer from '../components/cardContainers'
 import Arrow from '../components/arrow'
 
 import LeftArrow from '../assets/left-arrow.png'
@@ -11,7 +11,7 @@ function CarouselProducts(){
         <div className="products flex flex-row">
             <Arrow src={LeftArrow} alt='Left arrow' />
             <Link className='carousel flex flex-row' to='/product/:id'>
-                <ProductCard />
+                <CardContainer />
             </Link>
             <Arrow src={RightArrow} alt='Right arrow' />
         </div>

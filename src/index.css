@@ -1,19 +1,27 @@
 @import "tailwindcss";
 
-@theme {
-    /*Paleta predeterminada*/
-    --color-default-primary: '#E4A97C';
-    --color-default-secondary: '#AB886D';
-    --color-default-accent: '#6DA4AB';
-    --color-default-neutral: '#EDEDED';
-    --color-default-background: '#000000';
+@font-face {
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 300 400 700;
+  font-display: swap;
+  src: url("../src/assets/fonts/Rubik/Rubik-VariableFont_wght.ttf") format("woff2");
+}
 
-    /*Paleta del modo oscuro*/
-    --color-dark-primary: '#83481B';
-    --color-dark-secondary: '#926F54';
-    --color-dark-accent: '#548B92';
-    --color-dark-neutral: '#121212';
-    --color-dark-background: '#FFFFFF';
+@theme {
+    /* Colores del modo claro */
+    --color-primary-light: #E4A97C;
+    --color-accent-light: #AB886D;
+    --color-secondary-light: #6DA4AB;
+    --color-bg-light: #EDEDED;
+
+    /* Colores del modo oscuro */
+    --color-primary-dark: #83481B;
+    --color-accent-dark: #926F54;
+    --color-secondary-dark: #548B92;
+    --color-bg-dark: #121212;
+
+    --font-Rubik: 'Rubik';
 }
 
 input {

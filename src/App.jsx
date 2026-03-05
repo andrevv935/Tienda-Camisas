@@ -3,7 +3,7 @@ import LoginPage from './pages/login/index.jsx'
 import RegisterPage from './pages/register/index.jsx';
 import AdminPage from './pages/admin/index.jsx'
 import HomePage from './pages/home/index.jsx'
-import Header from './components/header.jsx'
+import Header from './layouts/header/header.jsx'
 import Footer from './components/footer.jsx'
 
 function App(){
