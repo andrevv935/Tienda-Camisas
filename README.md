@@ -14,3 +14,21 @@ The React Compiler is not enabled on this template because of its impact on dev 
 ## Expanding the ESLint configuration
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+## Supabase database connection
+
+1. Open Supabase dashboard: `Project Settings -> Database -> Connection string`.
+2. Copy the `URI` for `Session pooler`.
+3. Paste it into `.env` as `SUPABASE_DB_URL` (and optionally `DATABASE_URL`).
+4. Install dependencies and initialize schema:
+
+```bash
+npm install
+npm run db:init
+```
+
+Expected result:
+
+```text
+Tablas creadas/validadas correctamente.
+```

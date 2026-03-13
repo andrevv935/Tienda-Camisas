@@ -14,14 +14,50 @@
     --color-accent-light: #AB886D;
     --color-secondary-light: #6DA4AB;
     --color-bg-light: #EDEDED;
+    --color-text-light: #333;
 
     /* Colores del modo oscuro */
     --color-primary-dark: #83481B;
     --color-accent-dark: #926F54;
     --color-secondary-dark: #548B92;
     --color-bg-dark: #121212;
+    --color-text-dark: #EDEDED;
 
     --font-Rubik: 'Rubik';
+}
+
+body {
+    background-color: var(--color-bg-light);
+    color: #333;
+    font-family: var(--font-Rubik), sans-serif;
+}
+
+:root {
+    /* Variables mutables desde React para aplicar fuentes por clase semantica */
+    --font-title: var(--font-Rubik);
+    --font-subtitle: var(--font-Rubik);
+    --font-paragraph: var(--font-Rubik);
+    --size-title: 26px;
+    --size-subtitle: 20px;
+    --size-paragraph: 16px;
+}
+
+.title {
+    /* Fuente para elementos con clase title */
+    font-family: var(--font-title), sans-serif;
+    font-size: var(--size-title);
+}
+
+.subtitle {
+    /* Fuente para elementos con clase subtitle */
+    font-family: var(--font-subtitle), sans-serif;
+    font-size: var(--size-subtitle);
+}
+
+.paragraph {
+    /* Fuente para elementos con clase paragraph */
+    font-family: var(--font-paragraph), sans-serif;
+    font-size: var(--size-paragraph);
 }
 
 input {
@@ -29,4 +65,41 @@ input {
     padding: 6px;
     margin-bottom: 1%;
     border-radius: 8px;
+}
+
+.colors-div input[type="color"] {
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    border-radius: 9999px;
+    overflow: hidden;
+    appearance: none;
+    -webkit-appearance: none;
+}
+
+.colors-div input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+.colors-div input[type="color"]::-webkit-color-swatch {
+    border: none;
+    border-radius: 9999px;
+}
+
+button {
+    background-color: var(--color-primary-light);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: var(--color-accent-light);
+}
+
+.hidden {
+    display: none;
 }
