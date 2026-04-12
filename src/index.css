@@ -26,10 +26,53 @@
     --font-Rubik: 'Rubik';
 }
 
-body {
-    background-color: var(--color-bg-light);
-    color: #333;
-    font-family: var(--font-Rubik), sans-serif;
+@media print{
+    @page {
+        size: auto;
+        margin: 14mm;
+    }
+
+    .no-print{
+        display: none;
+    }
+
+    .app-header,
+    .app-footer,
+    .user-menu {
+        display: none !important;
+    }
+
+    body * {
+        visibility: hidden;
+    }
+
+    .print-invoice,
+    .print-invoice * {
+        visibility: visible;
+    }
+
+    .print-invoice {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .print-invoice > div {
+        border: none !important;
+        box-shadow: none !important;
+        position: relative;
+        padding-bottom: 120px !important;
+    }
+
+    .fiscal-imprint {
+        position: fixed;
+        left: 14mm;
+        right: 14mm;
+        bottom: 10mm;
+        margin: 0 !important;
+        background: #f8fafc !important;
+        break-inside: avoid;
+    }
 }
 
 :root {
@@ -40,6 +83,12 @@ body {
     --size-title: 26px;
     --size-subtitle: 20px;
     --size-paragraph: 16px;
+}
+
+body {
+    background-color: var(--color-bg-light);
+    color: var(--color-text-light);
+    font-family: var(--font-Rubik), sans-serif;
 }
 
 .title {
@@ -88,7 +137,7 @@ input {
 
 button {
     background-color: var(--color-primary-light);
-    color: white;
+    color: var(--color-text-light);
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -100,6 +149,6 @@ button:hover {
     background-color: var(--color-accent-light);
 }
 
-.hidden {
+/*.hidden {
     display: none;
-}
+}*/

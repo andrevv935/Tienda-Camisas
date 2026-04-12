@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import CardContainer from '../components/cardContainers'
-import Arrow from '../components/arrow'
-import { products } from '../assets/mockData/products'
+import CardContainer from './products/cardContainers'
+import Arrow from './arrow'
+import { products } from '../assets/mockData/products.js'
 
 import LeftArrow from '../assets/left-arrow.png'
 import RightArrow from '../assets/right-arrow.png'

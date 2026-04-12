@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Navigate, Routes, Route } from 'react-router-dom';
+import { Navigate, Outlet, Routes, Route } from 'react-router-dom';
 import Header from './layouts/header/header.jsx'
 import Footer from './components/footer.jsx'
 
@@ -10,11 +10,23 @@ import DashboardLayout from './layouts/dashboard/dashboardLayout.jsx'
 import Dashboard from './layouts/dashboard/dashboard.jsx'
 import Font from './layouts/dashboard/font.jsx'
 import Palette from './layouts/dashboard/palette.jsx'
+import CreateProduct from './layouts/dashboard/createProduct.jsx'
+import CreateCoupon from './layouts/dashboard/coupon.jsx'
+
+import UserLayout from './layouts/user/userLayout.jsx';
+import BillingPage from './layouts/user/billingPage.jsx';
+import CartPage from './layouts/user/cart/index.jsx';
 
 import HomePage from './pages/home/index.jsx'
 import { fetchPalettes } from './backend/services/palettes/paletteApiClient.js'
 import { fetchFonts } from './backend/services/fonts/fontApiClient.js'
 import { getCurrentUser } from './backend/services/auth/authApiClient.js'
+import ProductsPage from './components/products/productsPage.jsx';
+import ProductPage from './components/products/productPage.jsx';
+
+import { BillingConfigProvider } from './layouts/billing/BillingConfigContext.jsx';
+import BillingConfigPage from './layouts/billing/BillingConfigPage.jsx';
+import { CartProvider } from './hook/user/useCart.jsx';
 
 const MODE_STORAGE_KEY = 'preferredPaletteMode'
 
@@ -25,6 +37,16 @@ function RequireAdmin({ children }) {
     }
 
     return children
+}
+
+function UserLayoutGate() {
+    const user = getCurrentUser()
+
+    if (user) {
+        return <UserLayout />
+    }
+
+    return <Outlet />
 }
 
 function App(){
@@ -118,22 +140,37 @@ function App(){
     }, [])
 
     return (
-        <>
-            <Header />
+        <BillingConfigProvider>
+            <CartProvider>
+                <Header />
 
-            <Routes>
-                <Route path='/' element={<HomePage />} />
-                <Route path='/admin' element={<RequireAdmin><DashboardLayout /></RequireAdmin>}>
-                    <Route path='dashboard' element={<Dashboard />} />
-                    <Route path='fonts' element={<Font />} />
-                    <Route path='palettes' element={<Palette />} />
-                </Route>
-                <Route path='/login' element={<LoginPage />} />
-                <Route path='/register' element={<RegisterPage />} />
-            </Routes>
+                <Routes>
+                    <Route path='/login' element={<LoginPage />} />
+                    <Route path='/register' element={<RegisterPage />} />
+                    <Route path='/admin' element={<RequireAdmin><DashboardLayout /></RequireAdmin>}>
+                        <Route path='dashboard' element={<Dashboard />} />
+                        <Route path='fonts' element={<Font />} />
+                        <Route path='palettes' element={<Palette />} />
+                        <Route path='billing' element={<BillingConfigPage />} />
+                        <Route path='create-product' element={<CreateProduct />} />
+                        <Route path='create-coupon' element={<CreateCoupon />} />
+                    </Route>
 
-            <Footer />
-        </>
+                    <Route element={<UserLayoutGate />}>
+                        <Route path='/' element={<HomePage />} />
+                        <Route path='/products' element={<ProductsPage />} />
+                        <Route path='/products/:productId' element={<ProductPage />} />
+
+                        <Route path='/user/:id'>
+                            <Route path='cart' element={<CartPage />} />
+                            <Route path='billingPage' element={<BillingPage />} />
+                        </Route>
+                    </Route>
+                </Routes>
+
+                <Footer />
+            </CartProvider>
+        </BillingConfigProvider>
     )
 }
 

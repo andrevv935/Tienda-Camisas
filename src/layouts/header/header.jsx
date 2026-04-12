@@ -2,7 +2,7 @@ import Navbar from './navbar/navbar.jsx'
 
 function Header(){
     return (
-        <header className='p-4 bg-secondary-light'>
+        <header className='app-header p-4 bg-secondary-light'>
             <Navbar />
         </header>
     )

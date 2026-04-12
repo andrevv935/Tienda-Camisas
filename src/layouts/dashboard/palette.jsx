@@ -78,29 +78,6 @@ export default function Palette(){
         }
     }, [currentPage, totalPages])
 
-    // Aplica variables CSS para modo claro y modo oscuro
-    useEffect(() => {
-        const root = document.documentElement
-        const lightPalette = savedPalettes.find((palette) => palette.id === selectedModes.light)
-        const darkPalette = savedPalettes.find((palette) => palette.id === selectedModes.dark)
-
-        if (lightPalette) {
-            root.style.setProperty('--color-primary-light', lightPalette.colors.primary)
-            root.style.setProperty('--color-secondary-light', lightPalette.colors.secondary)
-            root.style.setProperty('--color-accent-light', lightPalette.colors.accent)
-            root.style.setProperty('--color-bg-light', lightPalette.colors.background)
-            root.style.setProperty('--color-text-light', lightPalette.colors.text)
-        }
-
-        if (darkPalette) {
-            root.style.setProperty('--color-primary-dark', darkPalette.colors.primary)
-            root.style.setProperty('--color-secondary-dark', darkPalette.colors.secondary)
-            root.style.setProperty('--color-accent-dark', darkPalette.colors.accent)
-            root.style.setProperty('--color-bg-dark', darkPalette.colors.background)
-            root.style.setProperty('--color-text-dark', darkPalette.colors.text)
-        }
-    }, [savedPalettes, selectedModes])
-
     function handleColorChange(colorKey, value){
         setDraftPalette((prev) => ({
             ...prev,
@@ -212,7 +189,7 @@ export default function Palette(){
                     <p className='title font-bold'>Selector de paletas</p>
                     <p className='subtitle'>Selecciona colores y guarda tu paleta personalizada</p>
                     {isLoading && <p className='paragraph text-sm'>Cargando paletas...</p>}
-                    {!!errorMessage && <p className='paragraph text-sm text-red-700'>{errorMessage}</p>}
+                    {!!errorMessage && <p className='paragraph text-sm'>{errorMessage}</p>}
                     <label className='paragraph' htmlFor="palette-name">Nombre de la paleta</label>
                     <input
                         className='paragraph'
@@ -260,7 +237,7 @@ export default function Palette(){
                     </div>
                     <button
                         type='button'
-                        className='bg-accent-light text-white py-2 px-4 rounded paragraph'
+                        className='bg-accent-light py-2 px-4 rounded paragraph'
                         onClick={handleSavePalette}
                     >
                         Guardar paleta

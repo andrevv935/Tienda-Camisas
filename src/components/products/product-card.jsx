@@ -1,6 +1,6 @@
 import ShirtView from '../components/shirt'
 import orangeShirt from '../assets/orange-shirt.png'
-import Text from '../components/text'
+import Text from '../text'
 
 function productCard(className=''){
     return (

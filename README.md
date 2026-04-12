@@ -32,3 +32,7 @@ Expected result:
 ```text
 Tablas creadas/validadas correctamente.
 ```
+
+## Run the code
+1. `Frontend:` npm run dev
+2. `Backend:` npm run api:dev

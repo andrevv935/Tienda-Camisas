@@ -1,6 +1,6 @@
 import React from 'react'
-import Card from "./card"
-import { products } from "../assets/mockData/products.js"
+import Card from "./card.jsx"
+import { products } from "../../assets/mockData/products.js"
 
 const CardContainers = ({ items = products, className = '' }) => {
 

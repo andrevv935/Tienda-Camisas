@@ -40,3 +40,47 @@ ALTER TABLE palettes
 
 ALTER TABLE fonts
     ADD COLUMN IF NOT EXISTS is_visible BOOLEAN NOT NULL DEFAULT TRUE;
+
+CREATE TABLE IF NOT EXISTS products (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name VARCHAR(160) NOT NULL,
+    description TEXT,
+    price NUMERIC(10, 2) NOT NULL CHECK (price >= 0),
+    selected_colors JSONB NOT NULL DEFAULT '[]'::jsonb,
+    stock_xs INTEGER NOT NULL DEFAULT 0 CHECK (stock_xs >= 0),
+    stock_s INTEGER NOT NULL DEFAULT 0 CHECK (stock_s >= 0),
+    stock_m INTEGER NOT NULL DEFAULT 0 CHECK (stock_m >= 0),
+    stock_l INTEGER NOT NULL DEFAULT 0 CHECK (stock_l >= 0),
+    stock_xl INTEGER NOT NULL DEFAULT 0 CHECK (stock_xl >= 0),
+    stock_xxl INTEGER NOT NULL DEFAULT 0 CHECK (stock_xxl >= 0),
+    image_url TEXT,
+    is_visible BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+ALTER TABLE products
+    ADD COLUMN IF NOT EXISTS is_visible BOOLEAN NOT NULL DEFAULT TRUE;
+
+CREATE TABLE IF NOT EXISTS coupons (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    code VARCHAR(80) NOT NULL UNIQUE,
+    duration_days INTEGER NOT NULL CHECK (duration_days >= 1),
+    discount_percentage NUMERIC(5, 0) NOT NULL CHECK (discount_percentage > 0 AND discount_percentage <= 100),
+    expires_time TIME NOT NULL DEFAULT '23:59:59',
+    expires_at TIMESTAMPTZ NOT NULL,
+    status VARCHAR(20) NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'expired')),
+    is_visible BOOLEAN NOT NULL DEFAULT TRUE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+ALTER TABLE coupons
+    ADD COLUMN IF NOT EXISTS is_visible BOOLEAN NOT NULL DEFAULT TRUE;
+
+ALTER TABLE coupons
+    ADD COLUMN IF NOT EXISTS expires_time TIME NOT NULL DEFAULT '23:59:59';
+
+ALTER TABLE coupons
+    ALTER COLUMN discount_percentage TYPE NUMERIC(5, 0)
+    USING ROUND(discount_percentage);

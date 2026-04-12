@@ -5,10 +5,10 @@ import { FaTiktok } from "react-icons/fa"
 
 const Footer = () => {
   return (
-    <footer className='bg-[#202020] py-7 flex flex-col items-center justify-between'>
-        <div className='text-white/40'>
+    <footer className='app-footer bg-secondary-light py-7 flex flex-col items-center justify-between border-t border-accent-light'>
+        <div>
             <div className='mb-10'>
-                <div className='flex bg-bg-dark text-white w-10 h-10 rounded-full mx-auto items-center'>
+                <div className='flex bg-primary-light w-10 h-10 rounded-full mx-auto items-center'>
                     {/* Logo */}
                     <p className='subtitle mx-auto font-medium text-xl'>F</p>
                 </div>
@@ -22,12 +22,9 @@ const Footer = () => {
                 </ul>
             </div>
             <div className='flex gap-10 justify-center my-10'>
-                <a href="#"><FaFacebook className='size-6 text-white'/></a>
-                <a href="#"><FaInstagram className='size-6 text-white'/></a>
-                <a href="#"><FaTiktok className='size-6 text-white'/></a>
-            </div>
-            <div>
-                <p className='paragraph'>Daniel Laviera</p>
+                <a href="#"><FaFacebook className='size-6 hover:text-accent-light'/></a>
+                <a href="#"><FaInstagram className='size-6 hover:text-accent-light'/></a>
+                <a href="#"><FaTiktok className='size-6 hover:text-accent-light'/></a>
             </div>
         </div>
         

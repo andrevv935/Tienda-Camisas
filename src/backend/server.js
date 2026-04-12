@@ -6,6 +6,8 @@ import { fileURLToPath } from 'node:url'
 import paletteRoutes from './services/palettes/paletteRoutes.js'
 import fontRoutes from './services/fonts/fontRoutes.js'
 import authRoutes from './services/auth/authRoutes.js'
+import productRoutes from './services/products/productRoutes.js'
+import couponRoutes from './services/coupons/couponRoutes.js'
 
 const app = express()
 const port = Number(process.env.API_PORT || 3001)
@@ -24,6 +26,8 @@ app.get('/api/health', (_req, res) => {
 app.use('/api/auth', authRoutes)
 app.use('/api/palettes', paletteRoutes)
 app.use('/api/fonts', fontRoutes)
+app.use('/api/products', productRoutes)
+app.use('/api/coupons', couponRoutes)
 
 app.use((error, _req, res, _next) => {
     console.error(error)

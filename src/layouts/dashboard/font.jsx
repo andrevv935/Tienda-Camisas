@@ -257,10 +257,10 @@ export default function Font(){
             <div className='mt-6.5 ml-6 gap-0.5 flex flex-col'>
                 <p className='title font-bold text-3xl'>Selector de tipografias</p>
                 {isLoading && <p className='paragraph text-sm'>Cargando fuentes...</p>}
-                {!!errorMessage && <p className='paragraph text-sm text-red-700'>{errorMessage}</p>}
+                {!!errorMessage && <p className='paragraph text-sm'>{errorMessage}</p>}
                 <div className='font-loader flex flex-col'>
                     <label htmlFor="font-input" className='subtitle text-xl'>Elija la tipografia que desea cargar</label>
-                    <input type="file" accept='.ttf' id="font-input" multiple onChange={handleFontUpload} />
+                    <input type="file" accept='.ttf' id="font-input" className='hover:cursor-pointer' multiple onChange={handleFontUpload} />
                 </div>
                 <hr />
                 <div className="loaded-fonts">
