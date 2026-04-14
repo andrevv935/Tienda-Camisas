@@ -11,7 +11,7 @@ import {
 // Este componente es para gestionar las paletas de colores del sitio web. Permite seleccionar colores para diferentes elementos y ver una vista previa de cómo se verían esos colores en el sitio web antes de aplicarlos.
 // Tambien permite guardar, editar y eliminar las paletas de colores personalizadas para usarlas en el futuro o compartirlas con otros usuarios.
 
-export default function Palette(){
+export default function Palette() {
     const paletteColorOrder = ['primary', 'secondary', 'accent', 'background', 'text']
 
     const [paletteName, setPaletteName] = useState('')
@@ -78,14 +78,14 @@ export default function Palette(){
         }
     }, [currentPage, totalPages])
 
-    function handleColorChange(colorKey, value){
+    function handleColorChange(colorKey, value) {
         setDraftPalette((prev) => ({
             ...prev,
             [colorKey]: value
         }))
     }
 
-    async function handleSavePalette(){
+    async function handleSavePalette() {
         const normalizedName = paletteName.trim()
 
         if (!normalizedName) return
@@ -103,13 +103,13 @@ export default function Palette(){
         }
     }
 
-    function isPaletteAssignedToAnotherMode(paletteId, targetMode){
+    function isPaletteAssignedToAnotherMode(paletteId, targetMode) {
         return Object.entries(selectedModes).some(
             ([mode, selectedPaletteId]) => mode !== targetMode && String(selectedPaletteId) === String(paletteId)
         )
     }
 
-    async function handleModeSelection(mode, paletteId){
+    async function handleModeSelection(mode, paletteId) {
         if (isPaletteAssignedToAnotherMode(paletteId, mode)) return
 
         const modeKey = mode === 'light' ? 'default' : mode
@@ -123,11 +123,11 @@ export default function Palette(){
         }
     }
 
-    function isPaletteSelected(paletteId){
+    function isPaletteSelected(paletteId) {
         return Object.values(selectedModes).some((selectedId) => String(selectedId) === String(paletteId))
     }
 
-    async function handleDeletePalette(paletteId){
+    async function handleDeletePalette(paletteId) {
         if (isPaletteSelected(paletteId)) return
 
         try {
@@ -142,24 +142,24 @@ export default function Palette(){
         }
     }
 
-    function handleEditPalette(palette){
+    function handleEditPalette(palette) {
         setEditingPaletteId(palette.id)
         setEditingDraft({ ...palette.colors })
     }
 
-    function handleEditingColorChange(colorKey, value){
+    function handleEditingColorChange(colorKey, value) {
         setEditingDraft((prev) => ({
             ...prev,
             [colorKey]: value
         }))
     }
 
-    function handleCancelEdit(){
+    function handleCancelEdit() {
         setEditingPaletteId(null)
         setEditingDraft(null)
     }
 
-    async function handleSaveEditedPalette(){
+    async function handleSaveEditedPalette() {
         if (!editingPaletteId || !editingDraft) return
 
         try {
@@ -174,17 +174,17 @@ export default function Palette(){
         }
     }
 
-    function goToPreviousPage(){
+    function goToPreviousPage() {
         setCurrentPage((prevPage) => Math.max(1, prevPage - 1))
     }
 
-    function goToNextPage(){
+    function goToNextPage() {
         setCurrentPage((prevPage) => Math.min(totalPages, prevPage + 1))
     }
 
     return (
         <div className='palette p-4 rounded w-full h-auto mt-4 flex flex-col md:flex-row'>
-            <div className='flex flex-col ml-4 w-160'>
+            <div className='flex flex-col ml-0 md:ml-4 w-full max-w-[40rem]'>
                 <div className='palette-creator flex flex-col'>
                     <p className='title font-bold'>Selector de paletas</p>
                     <p className='subtitle'>Selecciona colores y guarda tu paleta personalizada</p>
@@ -198,7 +198,7 @@ export default function Palette(){
                         value={paletteName}
                         onChange={(event) => setPaletteName(event.target.value)}
                     />
-                    <div className='colors-div gap-6 items-center justify-between flex flex-row'>
+                    <div className='colors-div gap-4 items-center justify-start flex flex-row flex-wrap my-4'>
                         <input
                             className='rounded-full focus:outline-none focus:ring-2 focus:ring-secondary-light'
                             type="color"

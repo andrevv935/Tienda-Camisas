@@ -1,14 +1,46 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import CardContainer from './products/cardContainers'
 import Arrow from './arrow'
-import { products } from '../assets/mockData/products.js'
+import { fetchProductsRequest } from '../backend/services/products/productApiClient.js'
 
 import LeftArrow from '../assets/left-arrow.png'
 import RightArrow from '../assets/right-arrow.png'
 
-function CarouselProducts(){
+function safeNumber(value, fallback = 0) {
+    const parsed = Number(value)
+    return Number.isFinite(parsed) ? parsed : fallback
+}
+
+function normalizeProduct(rawProduct) {
+    return {
+        ...rawProduct,
+        id: rawProduct?.id,
+        name: String(rawProduct?.name || 'Producto sin nombre').trim(),
+        description: String(rawProduct?.description || 'Sin descripcion').trim(),
+        price: safeNumber(rawProduct?.price),
+        imageUrl: rawProduct?.image_url || ''
+    }
+}
+
+function CarouselProducts() {
     const [itemsToShow, setItemsToShow] = useState(showItems())
     const [currentIndex, setCurrentIndex] = useState(0)
+    const [fetchedProducts, setFetchedProducts] = useState([])
+    const productsLengthRef = useRef(0)
+
+    useEffect(() => {
+        async function load() {
+            try {
+                const rows = await fetchProductsRequest()
+                const normalized = Array.isArray(rows) ? rows.map(normalizeProduct) : []
+                setFetchedProducts(normalized)
+                productsLengthRef.current = normalized.length
+            } catch (e) {
+                console.error(e)
+            }
+        }
+        load()
+    }, [])
 
     useEffect(() => {
         const handleResize = () => {
@@ -16,7 +48,7 @@ function CarouselProducts(){
 
             setItemsToShow(nextItemsToShow)
             setCurrentIndex((previousIndex) => {
-                if (previousIndex >= products.length) {
+                if (previousIndex >= productsLengthRef.current) {
                     return 0
                 }
 
@@ -31,7 +63,7 @@ function CarouselProducts(){
         }
     }, [])
 
-    const visibleProducts = getVisibleProducts(products, currentIndex, itemsToShow)
+    const visibleProducts = getVisibleProducts(fetchedProducts, currentIndex, itemsToShow)
 
     return (
         <>
@@ -42,7 +74,7 @@ function CarouselProducts(){
                     alt="Left arrow"
                     onClick={() => {
                         setCurrentIndex((previousIndex) =>
-                            changeItems('left', previousIndex, itemsToShow, products.length)
+                            changeItems('left', previousIndex, itemsToShow, fetchedProducts.length)
                         )
                     }}
                 />
@@ -55,7 +87,7 @@ function CarouselProducts(){
                     alt="Right arrow"
                     onClick={() => {
                         setCurrentIndex((previousIndex) =>
-                            changeItems('right', previousIndex, itemsToShow, products.length)
+                            changeItems('right', previousIndex, itemsToShow, fetchedProducts.length)
                         )
                     }}
                 />
@@ -64,22 +96,19 @@ function CarouselProducts(){
     )
 }
 
-// Esta función se encarga de mostrar los items del carrusel dependiendo del tamaño de la pantalla
-function showItems(){
+function showItems() {
     const screenWidth = window.innerWidth;
     let itemsToShow = 1;
 
     if (screenWidth >= 1024) {
         itemsToShow = 3;
     } else if (screenWidth >= 768) {
-        itemsToShow = 2; 
+        itemsToShow = 2;
     }
     return itemsToShow;
 }
 
-// Esta funcion se encarga de que cuando se haga click en las flechas, se muestren los siguientes items del carrusel
-// Si se hace click en la flecha derecha, se muestran los siguientes items, y si se hace click en la flecha izquierda, se muestran los anteriores items
-function changeItems(direction, currentIndex, itemsToShow, totalProducts){
+function changeItems(direction, currentIndex, itemsToShow, totalProducts) {
     if (totalProducts <= itemsToShow) {
         return 0;
     }
@@ -99,7 +128,7 @@ function changeItems(direction, currentIndex, itemsToShow, totalProducts){
     return nextIndex;
 }
 
-function getVisibleProducts(productList, startIndex, amount){
+function getVisibleProducts(productList, startIndex, amount) {
     if (productList.length === 0) {
         return [];
     }

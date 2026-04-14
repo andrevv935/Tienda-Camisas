@@ -1,4 +1,5 @@
 import Card from '../../components/products/card.jsx'
+import ejemplo from '../../assets/shirts/camino.png'
 
 export default function Preview(){
     return(
@@ -11,7 +12,7 @@ export default function Preview(){
                 <button className='paragraph bg-accent-light py-2 px-4 rounded'>Aplicar cambios</button>
             </div>
             <div>
-                <Card title="Vista previa de la fuente" description="Esta es una vista previa de la fuente seleccionada. Asegúrese de que la fuente se vea bien antes de aplicarla a su sitio web." />
+                <Card title="Vista previa de la fuente" description="Esta es una vista previa de la fuente seleccionada. Asegúrese de que la fuente se vea bien antes de aplicarla a su sitio web." img={ejemplo} />
             </div>
         </div>
     )

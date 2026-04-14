@@ -8,7 +8,7 @@ import {
     updateFontRequest
 } from '../../backend/services/fonts/fontApiClient.js'
 
-export default function Font(){
+export default function Font() {
     const [loadedFonts, setLoadedFonts] = useState([])
     const [selectedFonts, setSelectedFonts] = useState({
         title: null,
@@ -121,7 +121,7 @@ export default function Font(){
     }, [])
 
     // Maneja la carga de fuentes y las guarda en base de datos
-    async function handleFontUpload(event){
+    async function handleFontUpload(event) {
         const uploadedFiles = Array.from(event.target.files || [])
 
         if (uploadedFiles.length === 0) return
@@ -152,7 +152,7 @@ export default function Font(){
         event.target.value = ''
     }
 
-    async function handleFontSelection(section, fontId){
+    async function handleFontSelection(section, fontId) {
         try {
             await activateFontSectionRequest(fontId, section)
             await loadFonts()
@@ -161,14 +161,14 @@ export default function Font(){
         }
     }
 
-    function handleSizeChange(section, value){
+    function handleSizeChange(section, value) {
         setDraftSizes((prev) => ({
             ...prev,
             [section]: clampFontSize(value)
         }))
     }
 
-    async function applyTextSizes(){
+    async function applyTextSizes() {
         const safeSizes = {
             title: clampFontSize(draftSizes.title),
             subtitle: clampFontSize(draftSizes.subtitle),
@@ -235,11 +235,11 @@ export default function Font(){
         }
     }, [currentPage, totalPages])
 
-    function goToPreviousPage(){
+    function goToPreviousPage() {
         setCurrentPage((prevPage) => Math.max(1, prevPage - 1))
     }
 
-    function goToNextPage(){
+    function goToNextPage() {
         setCurrentPage((prevPage) => Math.min(totalPages, prevPage + 1))
     }
 
@@ -252,9 +252,9 @@ export default function Font(){
         }
     }
 
-    return(
+    return (
         <div className="font-chooser bg-bg-light text-text-light flex flex-col md:flex-row md:gap-6 p-6 rounded md:h-220">
-            <div className='mt-6.5 ml-6 gap-0.5 flex flex-col'>
+            <div className='mt-6.5 ml-0 md:ml-6 gap-0.5 flex flex-col w-full'>
                 <p className='title font-bold text-3xl'>Selector de tipografias</p>
                 {isLoading && <p className='paragraph text-sm'>Cargando fuentes...</p>}
                 {!!errorMessage && <p className='paragraph text-sm'>{errorMessage}</p>}
@@ -379,7 +379,7 @@ export default function Font(){
                     <button className='paragraph cursor-pointer' type='button' onClick={applyTextSizes}>Aplicar cambios</button>
                 </div>
             </div>
-            <hr className='mt-4 md:hidden'/>
+            <hr className='mt-4 md:hidden' />
             <div className='mt-18'>
                 <Preview />
             </div>
