@@ -27,6 +27,9 @@ import ProductPage from './components/products/productPage.jsx';
 import { BillingConfigProvider } from './layouts/billing/BillingConfigContext.jsx';
 import BillingConfigPage from './layouts/billing/BillingConfigPage.jsx';
 import { CartProvider } from './hook/user/useCart.jsx';
+import { LoadingScreenProvider } from './hook/loadingScreen/loadingScreen.jsx';
+import GlobalLoadingOverlay from './components/tangram/GlobalLoadingOverlay.jsx';
+import LoadingScreenSettings from './layouts/dashboard/loadingScreen.jsx';
 
 const MODE_STORAGE_KEY = 'preferredPaletteMode'
 
@@ -126,10 +129,16 @@ function App(){
             }
         }
 
-        bootstrapGlobalTheme()
+        // Run initial bootstrap and notify when applied so listeners can update.
+        bootstrapGlobalTheme().then(() => {
+            try { window.dispatchEvent(new Event('theme:applied')) } catch {}
+        })
 
         function handleThemeRefresh() {
-            bootstrapGlobalTheme()
+            // Re-bootstrap theme and notify once applied so components can react.
+            bootstrapGlobalTheme().then(() => {
+                try { window.dispatchEvent(new Event('theme:applied')) } catch {}
+            })
         }
 
         window.addEventListener('theme:refresh', handleThemeRefresh)
@@ -140,37 +149,41 @@ function App(){
     }, [])
 
     return (
-        <BillingConfigProvider>
-            <CartProvider>
-                <Header />
+        <LoadingScreenProvider>
+            <BillingConfigProvider>
+                <CartProvider>
+                    <Header />
 
-                <Routes>
-                    <Route path='/login' element={<LoginPage />} />
-                    <Route path='/register' element={<RegisterPage />} />
-                    <Route path='/admin' element={<RequireAdmin><DashboardLayout /></RequireAdmin>}>
-                        <Route path='dashboard' element={<Dashboard />} />
-                        <Route path='fonts' element={<Font />} />
-                        <Route path='palettes' element={<Palette />} />
-                        <Route path='billing' element={<BillingConfigPage />} />
-                        <Route path='create-product' element={<CreateProduct />} />
-                        <Route path='create-coupon' element={<CreateCoupon />} />
-                    </Route>
-
-                    <Route element={<UserLayoutGate />}>
-                        <Route path='/' element={<HomePage />} />
-                        <Route path='/products' element={<ProductsPage />} />
-                        <Route path='/products/:productId' element={<ProductPage />} />
-
-                        <Route path='/user/:id'>
-                            <Route path='cart' element={<CartPage />} />
-                            <Route path='billingPage' element={<BillingPage />} />
+                    <Routes>
+                        <Route path='/login' element={<LoginPage />} />
+                        <Route path='/register' element={<RegisterPage />} />
+                        <Route path='/admin' element={<RequireAdmin><DashboardLayout /></RequireAdmin>}>
+                            <Route path='dashboard' element={<Dashboard />} />
+                            <Route path='fonts' element={<Font />} />
+                            <Route path='palettes' element={<Palette />} />
+                            <Route path='billing' element={<BillingConfigPage />} />
+                            <Route path='loading-screen' element={<LoadingScreenSettings />} />
+                            <Route path='create-product' element={<CreateProduct />} />
+                            <Route path='create-coupon' element={<CreateCoupon />} />
                         </Route>
-                    </Route>
-                </Routes>
 
-                <Footer />
-            </CartProvider>
-        </BillingConfigProvider>
+                        <Route element={<UserLayoutGate />}>
+                            <Route path='/' element={<HomePage />} />
+                            <Route path='/products' element={<ProductsPage />} />
+                            <Route path='/products/:productId' element={<ProductPage />} />
+
+                            <Route path='/user/:id'>
+                                <Route path='cart' element={<CartPage />} />
+                                <Route path='billingPage' element={<BillingPage />} />
+                            </Route>
+                        </Route>
+                    </Routes>
+
+                    <GlobalLoadingOverlay />
+                    <Footer />
+                </CartProvider>
+            </BillingConfigProvider>
+        </LoadingScreenProvider>
     )
 }
 

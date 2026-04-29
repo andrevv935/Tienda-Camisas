@@ -17,6 +17,9 @@ export default function Menu() {
                     <Link to="/admin/billing">Billing</Link>
                 </li>
                 <li className="subtitle p-4 hover:bg-accent-light hover:cursor-pointer border-b border-gray-300">
+                    <Link to="/admin/loading-screen">Loading Screen</Link>
+                </li>
+                <li className="subtitle p-4 hover:bg-accent-light hover:cursor-pointer border-b border-gray-300">
                     <Link to="/admin/create-product">Create Product</Link>
                 </li>
                 <li className="subtitle p-4 hover:bg-accent-light hover:cursor-pointer border-b border-gray-300">

@@ -94,27 +94,36 @@ export default function BillingPage({ className = '', name = 'Consumidor final',
             <div className='rounded-2xl border p-5 shadow-sm sm:p-8' style={panelStyle}>
                 <header className='mb-8 flex flex-col gap-4 border-b pb-6 sm:flex-row sm:items-start sm:justify-between' style={{ borderColor: 'var(--color-accent-light)' }}>
                     <div>
-                        <p className='text-xs font-semibold uppercase tracking-[0.22em] opacity-70'>{companyData.name}</p>
-                        <h1 className='mt-2 text-2xl font-bold sm:text-3xl'>Factura de venta</h1>
-                        <p className='mt-1 text-sm opacity-80'>{companyData.address}</p>
-                        <p className='mt-1 text-sm opacity-80'>RIF: {companyData.rif}</p>
+                        <p className='subtitle text-xs font-semibold uppercase tracking-[0.22em] opacity-70'>{companyData.name}</p>
+                        <h1 className='title mt-2 text-2xl font-bold sm:text-3xl'>Factura de venta</h1>
+                        <p className='paragraph mt-1 text-sm opacity-80'>{companyData.address}</p>
+                        <p className='paragraph mt-1 text-sm opacity-80'>RIF: {companyData.rif}</p>
                     </div>
 
                     <div className='rounded-xl border px-4 py-3 text-sm' style={softPanelStyle}>
-                        <p><span className='font-semibold'>Fecha de emision:</span> {formattedEmissionDate}</p>
-                        <p><span className='font-semibold'>Hora de emision:</span> {emissionDate.toLocaleTimeString('es-VE')}</p>
-                        <p><span className='font-semibold'>Nro. factura:</span> {invoiceNumber}</p>
-                        <p><span className='font-semibold'>Moneda:</span> Bolivar (VES)</p>
+                        <p><span className='paragraph font-semibold'>Fecha de emision:</span> {formattedEmissionDate}</p>
+                        <p><span className='paragraph font-semibold'>Hora de emision:</span> {emissionDate.toLocaleTimeString('es-VE')}</p>
+                        <p><span className='paragraph font-semibold'>Nro. factura:</span> {invoiceNumber}</p>
+                        <p><span className='paragraph font-semibold'>Moneda:</span> Bolivar (VES)</p>
                     </div>
                 </header>
 
                 <div className='mb-6 grid gap-3 rounded-xl border p-4 text-sm sm:grid-cols-2' style={softPanelStyle}>
-                    <p><span className='font-semibold'>Cliente:</span> {name}</p>
-                    <p><span className='font-semibold'>Direccion:</span> {address}</p>
-                    <p><span className='font-semibold'>RIF/CI:</span> {rifClient}</p>
+                    <p><span className='paragraph font-semibold'>Cliente:</span> {name}</p>
+                    <p><span className='paragraph font-semibold'>Direccion:</span> {address}</p>
+                    <p>
+                        <span className='paragraph font-semibold'>RIF/CI:</span>
+                        <input
+                            type='text'
+                            onChange={(event) => setRifClient(event.target.value.toUpperCase())}
+                            placeholder='Ej. V-123456789'
+                            className='paragraph rounded-lg border px-3 py-2 text-sm'
+                            style={{ borderColor: 'var(--color-accent-light)', backgroundColor: 'var(--color-bg-light)', color: 'var(--color-text-light)' }}
+                        />
+                    </p>
                 </div>
 
-                <div className='mb-6 rounded-xl border p-4' style={softPanelStyle}>
+                <div className='no-print mb-6 rounded-xl border p-4' style={softPanelStyle}>
                     <p className='paragraph mb-3 text-sm font-semibold'>Aplicar cupon de descuento</p>
                     <div className='flex flex-wrap items-center gap-2'>
                         <input

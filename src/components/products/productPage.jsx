@@ -176,7 +176,7 @@ export default function ProductPage() {
                                         key={color}
                                         type='button'
                                         onClick={() => setSelectedColor(color)}
-                                        className='h-8 w-8 rounded-full border-2'
+                                        className='h-8 w-8 rounded-full border-2 focus:border-accent-light'
                                         style={{
                                             backgroundColor: color,
                                             borderColor: selectedColor === color ? 'var(--color-accent-light)' : 'var(--color-bg-light)'

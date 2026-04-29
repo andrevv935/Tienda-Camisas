@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+
 import { FaFacebook } from "react-icons/fa"
 import { FaInstagram } from "react-icons/fa"
 import { FaTiktok } from "react-icons/fa"
@@ -16,7 +18,7 @@ const Footer = () => {
                 <div className='w-full px-2'>
                     <ul className='flex flex-wrap gap-4 md:gap-10 justify-center text-center'>
                         <li className='paragraph'><a href="#">ABOUT</a></li>
-                        <li className='paragraph'><a href="#">SHOP</a></li>
+                        <li className='paragraph'><Link to={'/products'}>SHOP</Link></li>
                         <li className='paragraph'><a href="#">SERVICES</a></li>
                         <li className='paragraph'><a href="#">CONTACTS</a></li>
                     </ul>

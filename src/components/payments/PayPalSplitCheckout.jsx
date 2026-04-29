@@ -136,7 +136,7 @@ export default function PayPalSplitCheckout({
     }
 
     return (
-        <div className='mt-6 rounded-xl border p-4' style={{ borderColor: 'var(--color-accent-light)', backgroundColor: 'color-mix(in srgb, var(--color-bg-light) 84%, var(--color-primary-light))' }}>
+        <div className='no-print mt-6 rounded-xl border p-4' style={{ borderColor: 'var(--color-accent-light)', backgroundColor: 'color-mix(in srgb, var(--color-bg-light) 84%, var(--color-primary-light))' }}>
             <div className='mb-3 flex flex-wrap items-center justify-between gap-2'>
                 <h2 className='subtitle text-xl font-semibold'>PayPal Sandbox Split Payment</h2>
                 <button

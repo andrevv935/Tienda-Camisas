@@ -28,9 +28,9 @@ export default function UserMenu(){
                 <li className="subtitle p-4 hover:bg-accent-light hover:cursor-pointer">
                     <Link to={`/user/${userId}/cart`}>Carrito</Link>
                 </li>
-                <li className="subtitle p-4 hover:bg-accent-light hover:cursor-pointer">
+                {/* <li className="subtitle p-4 hover:bg-accent-light hover:cursor-pointer">
                     <Link to={`/user/${userId}/billingPage`}>Billing</Link>
-                </li>
+                </li> */}
             </ul>
         </div>
     )
